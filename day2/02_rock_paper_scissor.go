@@ -10,9 +10,9 @@ const ROCK_SELECTION_POINTS = 1
 const PAPER_SELECTION_POINTS = 2
 const SCISSORS_SELECTION_POINTS = 3
 
-const WINNING_POINTS = 6
-const DRAWING_POINTS = 3
 const LOSING_POINTS = 0
+const DRAWING_POINTS = 3
+const WINNING_POINTS = 6
 
 const ROCK_OPPONENT_SELECTION = "A"
 const PAPER_OPPONENT_SELECTION = "B"
@@ -92,7 +92,6 @@ func determineMyPlay(opponentCurrentPlay, myTargetStrategy string) string {
 		default:
 			panic(fmt.Sprintf("%s is not an expected value, the allowed ones are A, B or C", opponentCurrentPlay))
 		}
-	//need to draw
 	case DRAWING_STRATEGY:
 		switch opponentCurrentPlay {
 		case ROCK_OPPONENT_SELECTION:
@@ -104,7 +103,6 @@ func determineMyPlay(opponentCurrentPlay, myTargetStrategy string) string {
 		default:
 			panic(fmt.Sprintf("%s is not an expected value, the allowed ones are A, B or C", opponentCurrentPlay))
 		}
-	//need to win
 	case WINNING_STRATEGY:
 		switch opponentCurrentPlay {
 		case ROCK_OPPONENT_SELECTION:
