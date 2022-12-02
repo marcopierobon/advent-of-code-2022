@@ -1,33 +1,11 @@
-package main
+package day1
 
 import (
-	"bufio"
 	"fmt"
-	"log"
-	"os"
+	"helpers"
 	"sort"
 	"strconv"
 )
-
-func readLines(path string) []string {
-	file, err := os.Open(path)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	sc := bufio.NewScanner(file)
-	lines := make([]string, 0)
-
-	for sc.Scan() {
-		lines = append(lines, sc.Text())
-	}
-
-	if err := sc.Err(); err != nil {
-		log.Fatal(err)
-	}
-	return lines
-}
 
 func groupCaloriesByElf(caloriesList []string) []int {
 	caloriesPerElf := make([]int, 0)
@@ -63,8 +41,8 @@ func orderDescending(caloriesByElf []int) []int {
 	return caloriesByElf
 }
 
-func main() {
-	itemCalories := readLines("01_input.txt")
+func Day1Solution() {
+	itemCalories := helpers.ReadLines("day1/01_input.txt")
 	caloriesByElf := groupCaloriesByElf(itemCalories)
 
 	elvesOrderedByCaloriesDesc := orderDescending(caloriesByElf)
