@@ -6,6 +6,13 @@ import (
 	"strings"
 )
 
+const LOWER_CASE_A_IN_ASCII = 97
+const LOWER_CASE_Z_IN_ASCII = 122
+const UPPER_CASE_A_IN_ASCII = 65
+const UPPER_CASE_Z_IN_ASCII = 90
+const PRIORITY_OFFSET_IN_LOWER_CASE = 96
+const PRIORITY_OFFSET_IN_UPPER_CASE = 38
+
 func findCommonElement(firstBackPackElements, secondBackPackElements string) byte {
 	elementsInFirstBackpacks := make(map[string]bool)
 	for _, charValue := range firstBackPackElements {
@@ -41,11 +48,11 @@ func findCommonBadgeElement(firstBackPack string, secondBackPack string, thirdBa
 }
 
 func calculatePriority(commonElementAscii int) int {
-	if commonElementAscii >= 97 && commonElementAscii <= 122 {
-		return commonElementAscii - 96
+	if commonElementAscii >= LOWER_CASE_A_IN_ASCII && commonElementAscii <= LOWER_CASE_Z_IN_ASCII {
+		return commonElementAscii - PRIORITY_OFFSET_IN_LOWER_CASE
 	}
-	if commonElementAscii >= 65 && commonElementAscii <= 90 {
-		return commonElementAscii - 38
+	if commonElementAscii >= UPPER_CASE_A_IN_ASCII && commonElementAscii <= UPPER_CASE_Z_IN_ASCII {
+		return commonElementAscii - PRIORITY_OFFSET_IN_UPPER_CASE
 	}
 	panicMessage := fmt.Sprintf("Could not calculate priority for the letter %s, ASCII code %d",
 		fmt.Sprint(commonElementAscii), commonElementAscii)
