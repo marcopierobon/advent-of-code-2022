@@ -27,14 +27,12 @@ func day4SolutionPart2(backpacksContent []string) int {
 
 func getCleaningAssignmentsAnyOverlapsCount(backpacksContent []string) int {
 	var overlapCount = 0
-	for index, element := range backpacksContent {
+	for _, element := range backpacksContent {
 		currentPairAssignments := strings.Split(element, ",")
 		isPairAssignmentOverlapping := isPairAssignmentOverlapping(currentPairAssignments)
 		if isPairAssignmentOverlapping {
 			overlapCount++
 		}
-		fmt.Printf("At iteration %d the assignments %s and %s are overlapping=%t\n",
-			index, currentPairAssignments[0], currentPairAssignments[1], isPairAssignmentOverlapping)
 	}
 	return overlapCount
 }
