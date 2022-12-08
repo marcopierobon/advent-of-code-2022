@@ -14,3 +14,19 @@ func Atoi(stringValue string) int {
 	}
 	return integerValue
 }
+
+func Rtoi(runeValue rune) int {
+	return Atoi(string(runeValue))
+}
+
+func Btoi(byteValue byte) int {
+	return Atoi(string(byteValue))
+}
+
+func Atoiv(stringValue string) []int {
+	var returnValue = []int{}
+	for _, element := range stringValue {
+		returnValue = append(returnValue, Rtoi(element))
+	}
+	return returnValue
+}
