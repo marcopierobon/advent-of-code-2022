@@ -14,15 +14,17 @@ func Day6Solution() {
 }
 
 func day6SolutionPart1(transmissionSignal []string) []int {
-	startOfThePacketMarketPositions := getStartOfThePacketMarkerPositions(transmissionSignal,
+	startOfThePacketMarkerPositions := getStartOfThePacketMarkerPositions(transmissionSignal,
 		START_OF_THE_PACKET_MARKER_POSITIONS)
-	return startOfThePacketMarketPositions
+	fmt.Printf("Start of the packet marker position: %v\n", startOfThePacketMarkerPositions)
+	return startOfThePacketMarkerPositions
 }
 
 func day6SolutionPart2(transmissionSignal []string) []int {
-	startOfThePacketMarketPositions := getStartOfThePacketMarkerPositions(transmissionSignal,
+	startOfThePacketMessagePositions := getStartOfThePacketMarkerPositions(transmissionSignal,
 		START_OF_THE_PACKET_MESSAGE_POSITIONS)
-	return startOfThePacketMarketPositions
+	fmt.Printf("Start of the packet marker position: %v\n", startOfThePacketMessagePositions)
+	return startOfThePacketMessagePositions
 }
 
 func getStartOfThePacketMarkerPositions(transmissionSignals []string, numbeOfPositionsToCheck int) []int {
