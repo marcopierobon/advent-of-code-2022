@@ -1,0 +1,167 @@
+package day9
+
+import (
+	"fmt"
+	"helpers"
+	"strings"
+)
+
+const GRID_VERTICAL_SIZE = 5
+const GRID_HORIZONTAL_SIZE = 6
+
+func Day9Solution() {
+	day9SolutionPart1(helpers.ReadLines("day9/09_input.txt"))
+	// day8SolutionPart2(helpers.ReadLines("day8/08_input.txt"))
+}
+
+func day9SolutionPart1(listOfHeadMovements []string) int {
+	positionsVisitedByTail := movePositions(listOfHeadMovements)
+	fmt.Printf("The tail visited %d positions", positionsVisitedByTail)
+	return positionsVisitedByTail
+}
+
+func movePositions(listOfHeadMovements []string) int {
+	var headPositionX = 0
+	var headPositionY = 0
+	var tailPositionX = 0
+	var tailPositionY = 0
+	var totalMovements = 0
+	var minX = 1000000
+	var maxX = -1000000
+	var minY = 1000000
+	var maxY = -1000000
+	positionCoveredByTail := map[string]bool{}
+
+	positionCoveredByTail[fmt.Sprintf("%d-%d", 0, 0)] = true
+	for _, element := range listOfHeadMovements {
+		movementsSplit := strings.Fields(element)
+		direction := movementsSplit[0]
+		numberOfSteps := helpers.Atoi(movementsSplit[1])
+
+		fmt.Printf("\n\n\nMoving %s\n", element)
+
+		for i := 0; i < numberOfSteps; i++ {
+			totalMovements++
+			fmt.Printf("Movement %d/%d\n", i+1, numberOfSteps)
+
+			// fmt.Print("\n")
+			// fmt.Printf("Previous value HEAD (%d, %d)", headPositionX, headPositionY)
+			// fmt.Printf("Previous value TAIL (%d, %d)", tailPositionX, tailPositionY)
+			// fmt.Print("\n")
+			switch direction {
+			case "R":
+				{
+					headPositionX = (headPositionX + 1)
+					absoluteDistance := getAbsoluteDistance(headPositionX, headPositionY, tailPositionX, tailPositionY)
+					if absoluteDistance == 2 && headPositionY == tailPositionY {
+						tailPositionX = (tailPositionX + 1)
+					} else if absoluteDistance >= 3 {
+						tailPositionY = headPositionY
+						tailPositionX = (tailPositionX + 1)
+					}
+				}
+			case "L":
+				{
+					headPositionX = (headPositionX - 1)
+					absoluteDistance := getAbsoluteDistance(headPositionX, headPositionY, tailPositionX, tailPositionY)
+					if absoluteDistance == 2 && headPositionY == tailPositionY {
+						tailPositionX = (tailPositionX - 1)
+					} else if absoluteDistance >= 3 {
+						tailPositionY = headPositionY
+						tailPositionX = (tailPositionX - 1)
+					}
+				}
+			case "U":
+				{
+					headPositionY = (headPositionY + 1)
+					absoluteDistance := getAbsoluteDistance(headPositionX, headPositionY, tailPositionX, tailPositionY)
+					if absoluteDistance == 2 && headPositionX == tailPositionX {
+						tailPositionY = (tailPositionY + 1)
+					} else if absoluteDistance == 3 {
+						tailPositionX = headPositionX
+						tailPositionY = (tailPositionY + 1)
+					}
+				}
+			case "D":
+				{
+					headPositionY = (headPositionY - 1)
+					absoluteDistance := getAbsoluteDistance(headPositionX, headPositionY, tailPositionX, tailPositionY)
+					if absoluteDistance == 2 && headPositionX == tailPositionX {
+						tailPositionY = (tailPositionY - 1)
+					} else if absoluteDistance == 3 {
+						tailPositionX = headPositionX
+						tailPositionY = (tailPositionY - 1)
+					}
+				}
+			}
+			positionCoveredByTail[fmt.Sprintf("%d-%d", tailPositionX, tailPositionY)] = true
+
+			if tailPositionX < minX {
+				minX = tailPositionX
+			}
+			if tailPositionX > maxX {
+				maxX = tailPositionX
+			}
+			if tailPositionY < minY {
+				minY = tailPositionY
+			}
+			if tailPositionY > maxY {
+				maxY = tailPositionY
+			}
+
+			fmt.Print("\n")
+			fmt.Printf("Next value HEAD (%d, %d)", headPositionX, headPositionY)
+			fmt.Printf("Next value TAIL (%d, %d)", tailPositionX, tailPositionY)
+			fmt.Print("\n")
+			// for height := 70; height >= -150; height-- {
+			// 	var isToBePrinted = false
+			// 	for width := -172; width < 98; width++ {
+			// 		if headPositionX > (width-5) && headPositionX < (width+5) && (headPositionY > (height-5) && headPositionX < (height+5)) {
+			// 			isToBePrinted = true
+			// 			if headPositionX == width && headPositionY == height {
+			// 				fmt.Print("H")
+			// 			} else if tailPositionX == width && tailPositionY == height {
+			// 				fmt.Print("T")
+			// 				// positionCoveredByTail[tailPositionX][tailPositionY] = true
+			// 			} else if width == 0 && height == 0 {
+			// 				fmt.Print("s")
+			// 			} else {
+			// 				fmt.Print(".")
+			// 			}
+			// 		}
+			// 	}
+			// 	if isToBePrinted {
+			// 		fmt.Print("\n")
+			// 	}
+			// }
+			// fmt.Printf("PositionCoveredByTail %d %v\n", len(positionCoveredByTail), positionCoveredByTail)
+		}
+
+	}
+
+	// var minX = -1000000
+	// var maxX = 1000000
+	// var minY = -1000000
+	// var maxY = 1000000
+
+	fmt.Printf("total movements: %d\n", totalMovements)
+	fmt.Printf("minX: %d; maxX: %d\n", minX, maxX)
+	fmt.Printf("MinY: %d; MaxY: %d\n", minY, maxY)
+	return len(positionCoveredByTail)
+}
+
+func getAbsoluteDistance(headPositionX int, headPositionY int, tailPositionX int, tailPositionY int) int {
+	var horizontalDistance = helpers.Abs(headPositionX - tailPositionX)
+	var verticalDistance = helpers.Abs(headPositionY - tailPositionY)
+
+	// if horizontalDistance == GRID_HORIZONTAL_SIZE-1 {
+	// 	horizontalDistance = 1
+	// }
+
+	// if verticalDistance == GRID_VERTICAL_SIZE-1 {
+	// 	verticalDistance = 1
+	// }
+
+	fmt.Printf("Current distance: %d\n", horizontalDistance+verticalDistance)
+	return (horizontalDistance + verticalDistance)
+}
