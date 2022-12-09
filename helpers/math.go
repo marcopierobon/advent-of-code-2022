@@ -6,3 +6,13 @@ func Abs(x int) int {
 	}
 	return x
 }
+
+func Sgn(a int) int {
+	switch {
+	case a < 0:
+		return -1
+	case a > 0:
+		return +1
+	}
+	return 0
+}
