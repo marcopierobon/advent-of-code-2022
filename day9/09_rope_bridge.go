@@ -75,16 +75,13 @@ func moveRope(direction string, leadingElement *[2]int, trailingElement *[2]int,
 func moveTheTrailingElement(leadingElement *[2]int, trailingElement *[2]int) {
 	horizontalDistance, verticalDistance :=
 		getAbsoluteDistances(leadingElement[0], leadingElement[1], trailingElement[0], trailingElement[1])
-	if (horizontalDistance + verticalDistance) == 2 {
-		if leadingElement[1] == trailingElement[1] {
-			trailingElement[0] += 1 * helpers.Sgn(leadingElement[0]-trailingElement[0])
-		} else if leadingElement[0] == trailingElement[0] {
-			trailingElement[1] += 1 * helpers.Sgn(leadingElement[1]-trailingElement[1])
-		}
-	} else if horizontalDistance+verticalDistance >= 3 {
+	if horizontalDistance+verticalDistance == 3 {
 		trailingElement[0] += 1 * helpers.Sgn(leadingElement[0]-trailingElement[0])
 		trailingElement[1] += 1 * helpers.Sgn(leadingElement[1]-trailingElement[1])
-
+	} else if horizontalDistance == 2 {
+		trailingElement[0] += 1 * helpers.Sgn(leadingElement[0]-trailingElement[0])
+	} else if verticalDistance == 2 {
+		trailingElement[1] += 1 * helpers.Sgn(leadingElement[1]-trailingElement[1])
 	}
 }
 
