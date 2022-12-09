@@ -19,7 +19,7 @@ func day9SolutionPart1(listOfHeadMovements []string) int {
 		{0, 0},
 		{0, 0},
 	}
-	positionsVisitedByTail := movePositions(listOfHeadMovements, elementsPositions)
+	positionsVisitedByTail := moveRope(listOfHeadMovements, elementsPositions)
 	fmt.Printf("The tail visited %d positions using a rope of length %d\n",
 		positionsVisitedByTail, len(listOfHeadMovements))
 	return positionsVisitedByTail
@@ -38,13 +38,13 @@ func day9SolutionPart2(listOfHeadMovements []string) int {
 		{0, 0},
 		{0, 0},
 	}
-	positionsVisitedByTail := movePositions(listOfHeadMovements, elementsPositions)
+	positionsVisitedByTail := moveRope(listOfHeadMovements, elementsPositions)
 	fmt.Printf("The tail visited %d positions using a rope of length %d\n",
 		positionsVisitedByTail, len(listOfHeadMovements))
 	return positionsVisitedByTail
 }
 
-func movePositions(listOfHeadMovements []string, elementsPositions [][2]int) int {
+func moveRope(listOfHeadMovements []string, elementsPositions [][2]int) int {
 	positionCoveredByTail := map[string]bool{}
 
 	positionCoveredByTail[fmt.Sprintf("%d-%d", 0, 0)] = true
@@ -55,7 +55,7 @@ func movePositions(listOfHeadMovements []string, elementsPositions [][2]int) int
 
 		for i := 0; i < numberOfSteps; i++ {
 			for j := 0; j < len(elementsPositions)-1; j++ {
-				moveRope(direction, &elementsPositions[j], &elementsPositions[j+1], j == 0)
+				moveRopeNodePairs(direction, &elementsPositions[j], &elementsPositions[j+1], j == 0)
 			}
 			positionCoveredByTail[fmt.Sprintf("%d-%d",
 				elementsPositions[len(elementsPositions)-1][0],
@@ -65,14 +65,14 @@ func movePositions(listOfHeadMovements []string, elementsPositions [][2]int) int
 	return len(positionCoveredByTail)
 }
 
-func moveRope(direction string, leadingElement *[2]int, trailingElement *[2]int, isHead bool) {
+func moveRopeNodePairs(direction string, leadingElement *[2]int, trailingElement *[2]int, isHead bool) {
 	if isHead {
 		moveHead(direction, leadingElement)
 	}
-	moveTheTrailingElement(leadingElement, trailingElement)
+	moveTheTrailingNode(leadingElement, trailingElement)
 }
 
-func moveTheTrailingElement(leadingElement *[2]int, trailingElement *[2]int) {
+func moveTheTrailingNode(leadingElement *[2]int, trailingElement *[2]int) {
 	horizontalDistance, verticalDistance :=
 		getAbsoluteDistances(leadingElement[0], leadingElement[1], trailingElement[0], trailingElement[1])
 	if horizontalDistance+verticalDistance == 3 {
@@ -85,23 +85,23 @@ func moveTheTrailingElement(leadingElement *[2]int, trailingElement *[2]int) {
 	}
 }
 
-func moveHead(direction string, leadingElement *[2]int) {
+func moveHead(direction string, headNode *[2]int) {
 	switch direction {
 	case "R":
 		{
-			leadingElement[0] = (leadingElement[0] + 1)
+			headNode[0] = (headNode[0] + 1)
 		}
 	case "L":
 		{
-			leadingElement[0] = (leadingElement[0] - 1)
+			headNode[0] = (headNode[0] - 1)
 		}
 	case "U":
 		{
-			leadingElement[1] = (leadingElement[1] + 1)
+			headNode[1] = (headNode[1] + 1)
 		}
 	case "D":
 		{
-			leadingElement[1] = (leadingElement[1] - 1)
+			headNode[1] = (headNode[1] - 1)
 		}
 	}
 }
