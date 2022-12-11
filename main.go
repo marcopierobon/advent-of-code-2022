@@ -1,7 +1,7 @@
 package main
 
 import (
-	"day1"
+	"day01"
 	"day10"
 	"day11"
 	"day2"
@@ -15,7 +15,7 @@ import (
 
 func main() {
 	println("--------DAY 01--------")
-	day1.Day1Solution()
+	day01.Day1Solution()
 	println("--------DAY 02--------")
 	day2.Day2Solution()
 	println("--------DAY 03--------")
