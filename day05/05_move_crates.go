@@ -9,10 +9,10 @@ import (
 func Day5Solution() {
 
 	var initialStacksConfiguration = initStacks()
-	day5SolutionPart1(initialStacksConfiguration, helpers.ReadLines("day5/05_input.txt"))
+	day5SolutionPart1(initialStacksConfiguration, helpers.ReadLines("day05/05_input.txt"))
 
 	initialStacksConfiguration = initStacks()
-	day5SolutionPart2(initialStacksConfiguration, helpers.ReadLines("day5/05_input.txt"))
+	day5SolutionPart2(initialStacksConfiguration, helpers.ReadLines("day05/05_input.txt"))
 }
 
 func initStacks() [][]string {

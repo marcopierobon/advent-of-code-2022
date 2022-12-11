@@ -145,7 +145,7 @@ func calculateScoreStrategy2(strategyPredictionRounds []string) int {
 }
 
 func Day2Solution() {
-	strategyPredictionRounds := helpers.ReadLines("day2/02_input.txt")
+	strategyPredictionRounds := helpers.ReadLines("day02/02_input.txt")
 	totalScoreStrategy1 := calculateScoreStrategy1(strategyPredictionRounds)
 
 	totalScoreStrategy2 := calculateScoreStrategy2(strategyPredictionRounds)

@@ -3,6 +3,7 @@ go 1.19
 use (
 	./day01
 	./day10
+	./day11
 	./day02
 	./day03
 	./day04

@@ -10,8 +10,8 @@ const SHORT_ROPE_LENGTH = 2
 const LONG_ROPE_LENGTH = 10
 
 func Day9Solution() {
-	day9SolutionPart1(helpers.ReadLines("day9/09_input.txt"))
-	day9SolutionPart2(helpers.ReadLines("day9/09_input.txt"))
+	day9SolutionPart1(helpers.ReadLines("day09/09_input.txt"))
+	day9SolutionPart2(helpers.ReadLines("day09/09_input.txt"))
 }
 
 func day9SolutionPart1(listOfHeadMovements []string) int {

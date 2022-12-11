@@ -9,8 +9,8 @@ const START_OF_THE_PACKET_MARKER_POSITIONS = 4
 const START_OF_THE_PACKET_MESSAGE_POSITIONS = 14
 
 func Day8Solution() {
-	day8SolutionPart1(helpers.ReadLines("day8/08_input.txt"))
-	day8SolutionPart2(helpers.ReadLines("day8/08_input.txt"))
+	day8SolutionPart1(helpers.ReadLines("day08/08_input.txt"))
+	day8SolutionPart2(helpers.ReadLines("day08/08_input.txt"))
 }
 
 func day8SolutionPart1(treeMapLines []string) int {

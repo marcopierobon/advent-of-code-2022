@@ -3,6 +3,7 @@ package main
 import (
 	"day1"
 	"day10"
+	"day11"
 	"day2"
 	"day3"
 	"day4"
@@ -31,4 +32,6 @@ func main() {
 	day9.Day9Solution()
 	println("--------DAY 10--------")
 	day10.Day10Solution()
+	println("--------DAY 11--------")
+	day11.Day11Solution()
 }

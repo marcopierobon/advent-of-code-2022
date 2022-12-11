@@ -84,8 +84,8 @@ func calculatePriorityOfGroupBadgesElements(backpacksContent []string) int {
 }
 
 func Day3Solution() {
-	day3SolutionPart1(helpers.ReadLines("day3/03_input.txt"))
-	day3SolutionPart2(helpers.ReadLines("day3/03_input.txt"))
+	day3SolutionPart1(helpers.ReadLines("day03/03_input.txt"))
+	day3SolutionPart2(helpers.ReadLines("day03/03_input.txt"))
 }
 
 func day3SolutionPart1(backpacksContent []string) int {

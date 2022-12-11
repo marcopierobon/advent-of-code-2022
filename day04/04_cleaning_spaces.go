@@ -7,8 +7,8 @@ import (
 )
 
 func Day4Solution() {
-	day4SolutionPart1(helpers.ReadLines("day4/04_input.txt"))
-	day4SolutionPart2(helpers.ReadLines("day4/04_input.txt"))
+	day4SolutionPart1(helpers.ReadLines("day04/04_input.txt"))
+	day4SolutionPart2(helpers.ReadLines("day04/04_input.txt"))
 }
 
 func day4SolutionPart1(backpacksContent []string) int {

@@ -9,8 +9,8 @@ const START_OF_THE_PACKET_MARKER_POSITIONS = 4
 const START_OF_THE_PACKET_MESSAGE_POSITIONS = 14
 
 func Day6Solution() {
-	day6SolutionPart1(helpers.ReadLines("day6/06_input.txt"))
-	day6SolutionPart2(helpers.ReadLines("day6/06_input.txt"))
+	day6SolutionPart1(helpers.ReadLines("day06/06_input.txt"))
+	day6SolutionPart2(helpers.ReadLines("day06/06_input.txt"))
 }
 
 func day6SolutionPart1(transmissionSignal []string) []int {

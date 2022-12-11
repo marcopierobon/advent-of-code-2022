@@ -42,7 +42,7 @@ func orderDescending(caloriesByElf []int) []int {
 }
 
 func Day1Solution() {
-	itemCalories := helpers.ReadLines("day1/01_input.txt")
+	itemCalories := helpers.ReadLines("day01/01_input.txt")
 	caloriesByElf := groupCaloriesByElf(itemCalories)
 
 	elvesOrderedByCaloriesDesc := orderDescending(caloriesByElf)
