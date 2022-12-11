@@ -17,11 +17,26 @@ const ROUNDS_EXTENDED = 10000
 
 const RELIEVE_WORRY_LEVEL = true
 
+func square(x int) int {
+	return x * x
+}
+
+func mul(y int) func(int) int {
+	return func(x int) int {
+		return x * y
+	}
+}
+
+func add(y int) func(int) int {
+	return func(x int) int {
+		return x + y
+	}
+}
+
 type Monkey struct {
 	worryLevelPerItemForCurrentMonkey []int
 	itemsExaminedSoFar                int
-	worryOperationOperand             int
-	worryOperationFactor              int
+	changeWorryLevelFunc              func(int) int
 	divisibleByValue                  int
 	monkeyNumberToThrowToIfTrue       int
 	monkeyNumberToThrowToIfFalse      int
@@ -83,8 +98,8 @@ func calculateNextRound(monkeys []*Monkey, isWorryLevelRelieved bool, mod int) {
 		}
 		indexLastInitialElement := len(monkey.worryLevelPerItemForCurrentMonkey)
 		for _, worryItem := range monkey.worryLevelPerItemForCurrentMonkey {
-			updatedWorry := calculateWorry(worryItem, monkey.worryOperationOperand,
-				monkey.worryOperationFactor, isWorryLevelRelieved, mod)
+			updatedWorry := calculateWorry(worryItem, monkey.changeWorryLevelFunc,
+				isWorryLevelRelieved, mod)
 
 			isTestConditionTrue :=
 				evaluateTrueTestCondition(updatedWorry, monkey.divisibleByValue)
@@ -107,17 +122,10 @@ func evaluateTrueTestCondition(currentItemWorry, divisibleByValue int) bool {
 	return currentItemWorry%divisibleByValue == 0
 }
 
-func calculateWorry(worryItem, worryOperationOperand, worryOperationFactor int,
+func calculateWorry(worryItem int, changeWorryLevelFunc func(int) int,
 	isWorryLevelRelieved bool, mod int) int {
 	var currentItemWorry = 0
-	switch worryOperationOperand {
-	case Multiply:
-		currentItemWorry = worryItem * worryOperationFactor
-	case Sum:
-		currentItemWorry = worryItem + worryOperationFactor
-	case Square:
-		currentItemWorry = worryItem * worryItem
-	}
+	currentItemWorry = changeWorryLevelFunc(worryItem)
 	if isWorryLevelRelieved {
 		currentItemWorryAfterMonkeyGetsBored := currentItemWorry / 3
 		return currentItemWorryAfterMonkeyGetsBored
@@ -131,11 +139,11 @@ func getInitialItemsPerMonkey(monkeysChecks []string) []*Monkey {
 	for index, line := range monkeysChecks {
 		if strings.HasPrefix(line, "Monkey") {
 			worryLevelPerItemForCurrentMonkey := getInitialWorryLevelPerItemForCurrentMonkey(monkeysChecks[index+1])
-			worryOperationOperand, worryOperationFactor := getWorryOperation(monkeysChecks[index+2])
+			targetFunc := getWorryOperation(monkeysChecks[index+2])
 			divisibleByValue, monkeyNumberToThrowToIfTrue, monkeyNumberToThrowToIfFalse :=
 				getThrowingTest(monkeysChecks[index+3 : index+6])
 			itemsExaminedSoFar := 0
-			var currentMonkey = Monkey{worryLevelPerItemForCurrentMonkey, itemsExaminedSoFar, worryOperationOperand, worryOperationFactor,
+			var currentMonkey = Monkey{worryLevelPerItemForCurrentMonkey, itemsExaminedSoFar, targetFunc,
 				divisibleByValue, monkeyNumberToThrowToIfTrue, monkeyNumberToThrowToIfFalse}
 			monkeys = append(monkeys, &currentMonkey)
 		}
@@ -150,17 +158,17 @@ func getThrowingTest(throwingTestInput []string) (int, int, int) {
 	return divisibleByValue, monkeyNumberToThrowToIfTrue, monkeyNumberToThrowToIfFalse
 }
 
-func getWorryOperation(operationInput string) (int, int) {
+func getWorryOperation(operationInput string) func(int) int {
 	operation := strings.Fields(strings.Split(operationInput, "= old ")[1])
 
 	if operation[1] == "old" {
-		return Square, 1
+		return square
 	} else {
 		factor := helpers.Atoi(operation[1])
 		if operation[0] == "+" {
-			return Sum, factor
+			return add(factor)
 		} else if operation[0] == "*" {
-			return Multiply, factor
+			return mul(factor)
 		} else {
 			panic(fmt.Sprintf("Could not determine the operation for %s\n", operationInput))
 		}
