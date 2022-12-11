@@ -1,14 +1,14 @@
 go 1.19
 
 use (
-	./day1
+	./day01
 	./day10
-	./day2
-	./day3
-	./day4
-	./day5
-	./day6
-	./day8
-	./day9
+	./day02
+	./day03
+	./day04
+	./day05
+	./day06
+	./day08
+	./day09
 	./helpers
 )
