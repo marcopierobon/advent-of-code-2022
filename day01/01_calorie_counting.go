@@ -24,7 +24,9 @@ func day1SolutionPart1(itemCalories []string) int {
 
 func day1SolutionPart2(itemCalories []string) int {
 	caloriesByElf := groupCaloriesByElf(itemCalories)
-
+	if len(caloriesByElf) < 3 {
+		return 0
+	}
 	elvesOrderedByCaloriesDesc := orderDescending(caloriesByElf)
 	topThreeCarriersSum := elvesOrderedByCaloriesDesc[0] + elvesOrderedByCaloriesDesc[1] + elvesOrderedByCaloriesDesc[2]
 	fmt.Printf("The 3 elves with the most calories have are carrying in total %d\n", topThreeCarriersSum)
