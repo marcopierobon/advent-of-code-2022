@@ -30,3 +30,11 @@ func Atoiv(stringValue string) []int {
 	}
 	return returnValue
 }
+
+func Ivtosv(intValues []int) []string {
+	var returnValue = []string{}
+	for _, element := range intValues {
+		returnValue = append(returnValue, fmt.Sprint(element))
+	}
+	return returnValue
+}
